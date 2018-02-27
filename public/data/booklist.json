@@ -1,0 +1,30 @@
+[
+  {
+    "bookID": 1,
+    "bookName": "FunFun",
+    "bookAuthor": "NoFun",
+    "bookYear": "2018",
+    "bookPrice": 230
+  },
+  {
+    "bookID": 2,
+    "bookName": "Groe Fun",
+    "bookAuthor": "Have Fun",
+    "bookYear": "2018",
+    "bookPrice": 780
+  },
+  {
+    "bookID": 3,
+    "bookName": "Done Fun",
+    "bookAuthor": "Five Fun",
+    "bookYear": "2016",
+    "bookPrice": 123
+  },
+  {
+    "bookID": 4,
+    "bookName": "Run Fun",
+    "bookAuthor": "Sever Fun",
+    "bookYear": "2018",
+    "bookPrice": 200
+  }
+]
