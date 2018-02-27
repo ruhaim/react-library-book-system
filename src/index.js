@@ -1,6 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
 import Hello from "./Hello";
+import BookList from "./views/BookList";
+import BookOperations from "./views/BookOperations";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -9,8 +11,11 @@ const styles = {
 
 const App = () => (
   <div style={styles}>
-    <Hello name="CodeSandbox" />
-    <h2>Start editing to see some magic happen {"\u2728"}</h2>
+    <h1>Library System React</h1>
+    <div>
+      <BookList />
+      <BookOperations />
+    </div>
   </div>
 );
 
