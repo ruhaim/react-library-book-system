@@ -15,10 +15,12 @@ export default class BookList extends React.Component {
       isLoading: true,
       booklist: []
     };
-    this.changeSelection = selection =>
+    this.changeSelection = selection => {
+      console.log(selection);
       this.setState({
-        selection: selection.pop()
+        selection: [selection.pop()]
       });
+    };
   }
 
   componentDidMount() {
