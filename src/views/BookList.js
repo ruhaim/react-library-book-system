@@ -16,7 +16,6 @@ export default class BookList extends React.Component {
       booklist: []
     };
     this.changeSelection = selection => {
-      console.log(selection);
       this.setState({
         selection: [selection.pop()]
       });
