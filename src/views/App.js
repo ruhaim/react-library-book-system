@@ -19,8 +19,8 @@ export default class App extends React.Component {
       <div style={styles}>
         <h1>Library System React</h1>
         <div>
-          <BookList />
           <BookOperations />
+          <BookList />
         </div>
       </div>
     );
