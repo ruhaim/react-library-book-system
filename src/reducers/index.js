@@ -27,7 +27,7 @@ const rootReducer = (state = initialState, action) => {
       console.log("select book", action.payload);
       return { ...state, selectedBook: action.payload };
     case GET_BOOKS:
-      return { ...state, books: action.payload };
+      return { ...state };
     case MODIFY_BOOK:
       return { ...state, selectedBook: action.payload };
     case SET_EDIT_MODE:

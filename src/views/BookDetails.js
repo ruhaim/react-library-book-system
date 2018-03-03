@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BookDetailsEdit } from "./BookDetailsEdit";
+import  BookDetailsEdit  from "./BookDetailsEdit";
 import { setEditMode, addBook } from "../actions/index";
 
 const mapStateToProps = state => {
@@ -41,9 +41,9 @@ class ConnectedBookDetails extends React.Component {
     const { bookID, bookName, bookAuthor, bookPrice, bookYear } = selectedBook;
 
     if (this.props.isEditMode) {
-      return <BookDetailsEdit/>;
+      return <BookDetailsEdit book={selectedBook} />;
     }
-
+ 
     return (
       <div>
         <h1>Book Details ({bookID})</h1>
