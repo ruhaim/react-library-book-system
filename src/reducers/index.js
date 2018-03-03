@@ -1,4 +1,9 @@
-import { ADD_BOOKS } from "../action-types/action-types.js";
+import {
+  ADD_BOOK,
+  MODIFY_BOOK,
+  GET_BOOKS,
+  GET_BOOK
+} from "../action-types/action-types.js";
 
 const initialState = {
   books: [
@@ -14,7 +19,16 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_BOOKS:
+    case ADD_BOOK:
+      return { ...state, books: [...state.books, action.payload] };
+    default:
+      return state;
+  }
+};
+
+const addBookReducer2 = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_BOOK:
       return { ...state, books: [...state.books, action.payload] };
     default:
       return state;

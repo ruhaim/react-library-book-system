@@ -10,6 +10,7 @@ import { getBookList } from "../services/api-services";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
+  console.log(state);
   return { booklist: state.books };
 };
 
