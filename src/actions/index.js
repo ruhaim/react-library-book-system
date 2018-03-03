@@ -18,3 +18,8 @@ export const getBooks = books => ({
   type: GET_BOOKS,
   payload: books
 });
+
+export const getBook = bookID => ({
+  type: GET_BOOKS,
+  payload: bookID
+});

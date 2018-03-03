@@ -7,14 +7,22 @@ import {
 } from "@devexpress/dx-react-grid-bootstrap3";
 import { SelectionState } from "@devexpress/dx-react-grid";
 import { getBookList } from "../services/api-services";
+import { connect } from "react-redux";
 
-export default class BookList extends React.Component {
+const mapStateToProps = state => {
+  return { booklist: state.books };
+};
+
+class ConnectedBookList extends React.Component {
   constructor() {
     super();
     this.state = {
       isLoading: true,
       booklist: []
     };
+    window.store.subscribe(() => console.log("Look ma, Redux!!"));
+    //window.store.dispatch(window.getBooks({ b: 1 }));
+
     this.changeSelection = selection => {
       this.setState({
         selection: [selection.pop()]
@@ -24,6 +32,8 @@ export default class BookList extends React.Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
+
+    //console.log(window.store.dispatch);
     getBookList()
       .then(result => result.json())
       .then(items => {
@@ -43,7 +53,7 @@ export default class BookList extends React.Component {
 
     return (
       <Grid
-        rows={this.state.booklist}
+        rows={this.props.booklist}
         columns={[
           { name: "bookID", title: "ID" },
           { name: "bookName", title: "Name" },
@@ -65,3 +75,6 @@ export default class BookList extends React.Component {
     );
   }
 }
+
+const BookList = connect(mapStateToProps)(ConnectedBookList);
+export default BookList;
