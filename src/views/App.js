@@ -2,6 +2,7 @@ import React from "react";
 
 import BookList from "./BookList";
 import BookOperations from "./BookOperations";
+import BookDetails from "./BookDetails";
 import { getBookList } from "../services/api-services";
 
 const styles = {
@@ -18,9 +19,12 @@ export default class App extends React.Component {
     return (
       <div style={styles}>
         <h1>Library System React</h1>
-        <div>
-          <BookOperations />
-          <BookList />
+        <div className="row">
+          <div className="col-6">
+            <BookOperations />
+            <BookList />
+          </div>
+          <BookDetails className="col-6" />
         </div>
       </div>
     );

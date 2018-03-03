@@ -2,7 +2,8 @@ import {
   ADD_BOOK,
   MODIFY_BOOK,
   GET_BOOKS,
-  GET_BOOK
+  GET_BOOK,
+  SELECT_BOOK
 } from "../action-types/action-types.js";
 
 const initialState = {
@@ -21,6 +22,13 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BOOK:
       return { ...state, books: [...state.books, action.payload] };
+    case SELECT_BOOK:
+      console.log("select book", action.payload)
+      return { ...state, selectedBook: action.payload };
+    case GET_BOOKS:
+      return { ...state, books: action.payload };
+    case MODIFY_BOOK:
+      return { ...state };
     default:
       return state;
   }

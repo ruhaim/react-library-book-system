@@ -1,7 +1,8 @@
 import {
   ADD_BOOK,
   MODIFY_BOOK,
-  GET_BOOKS
+  GET_BOOKS,
+  SELECT_BOOK
 } from "../action-types/action-types.js";
 
 export const addBook = book => ({
@@ -22,4 +23,9 @@ export const getBooks = books => ({
 export const getBook = bookID => ({
   type: GET_BOOKS,
   payload: bookID
+});
+
+export const selectBook = book => ({
+  type: SELECT_BOOK,
+  payload: book
 });
