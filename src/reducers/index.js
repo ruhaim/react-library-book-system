@@ -3,7 +3,8 @@ import {
   MODIFY_BOOK,
   GET_BOOKS,
   GET_BOOK,
-  SELECT_BOOK
+  SELECT_BOOK,
+  SET_EDIT_MODE
 } from "../action-types/action-types.js";
 
 const initialState = {
@@ -23,21 +24,14 @@ const rootReducer = (state = initialState, action) => {
     case ADD_BOOK:
       return { ...state, books: [...state.books, action.payload] };
     case SELECT_BOOK:
-      console.log("select book", action.payload)
+      console.log("select book", action.payload);
       return { ...state, selectedBook: action.payload };
     case GET_BOOKS:
       return { ...state, books: action.payload };
     case MODIFY_BOOK:
-      return { ...state };
-    default:
-      return state;
-  }
-};
-
-const addBookReducer2 = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_BOOK:
-      return { ...state, books: [...state.books, action.payload] };
+      return { ...state, selectedBook: action.payload };
+    case SET_EDIT_MODE:
+      return { ...state, isEditMode: action.payload };
     default:
       return state;
   }

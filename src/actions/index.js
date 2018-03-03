@@ -2,7 +2,8 @@ import {
   ADD_BOOK,
   MODIFY_BOOK,
   GET_BOOKS,
-  SELECT_BOOK
+  SELECT_BOOK,
+  SET_EDIT_MODE
 } from "../action-types/action-types.js";
 
 export const addBook = book => ({
@@ -28,4 +29,9 @@ export const getBook = bookID => ({
 export const selectBook = book => ({
   type: SELECT_BOOK,
   payload: book
+});
+
+export const setEditMode = bool => ({
+  type: SET_EDIT_MODE,
+  payload: bool
 });
