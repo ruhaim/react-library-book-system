@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setEditMode, modifyBook, addBook } from "../actions/index";
+import { setEditMode, modifyBook } from "../actions/index";
 
 const mapStateToProps = state => {
   return {
@@ -12,23 +12,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setEditMode: b => dispatch(setEditMode(b)),
-    modifyBook: book => dispatch(modifyBook(book)),
-    addBook: book => dispatch(addBook(book))
+    modifyBook: book => dispatch(modifyBook(book))
   };
 };
 
-class ConnectedBookDetailsEdit extends React.Component {
-  constructor(props) {
-    super(props);
+class ConnectedBookDetailsAdd extends React.Component {
+  constructor() {
+    super();
     this.state = {
-      book: props.book
+      booklist: []
     };
   }
 
   componentDidMount() {}
-  componentWillReceiveProps(nextProps) {
-    this.setState({ book: nextProps.book });
-  }
   onSaveClick(event) {
     event.preventDefault();
 
@@ -36,7 +32,6 @@ class ConnectedBookDetailsEdit extends React.Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    console.log(event);
 
     this.props.setEditMode(true);
   }
@@ -45,24 +40,12 @@ class ConnectedBookDetailsEdit extends React.Component {
 
     this.props.setEditMode(false);
   }
-
-  onValueChange(event, paramName) {
-    let newVal = String(event.target.value).trim();
-    if (newVal == "") {
-      this.setState({ hasError: true });
-      return;
-    }
-
-    const book = { ...this.state.book, [paramName]: newVal };
-    this.setState({ book });
-    console.log(book);
-    this.setState({ hasError: false });
-  }
   render() {
     if (this.state.isLoading) {
       return <div>Loading...</div>;
     }
     const selectedBook = this.props.book;
+    console.log("Editing", this.props);
     if (!selectedBook) {
       return <div>No Book Selected, Please Select a book</div>;
     }
@@ -84,7 +67,6 @@ class ConnectedBookDetailsEdit extends React.Component {
               type="text"
               id="bookName"
               defaultValue={bookName}
-              onChange={event => this.onValueChange(event, "bookName")}
               required
             />
           </div>
@@ -97,8 +79,6 @@ class ConnectedBookDetailsEdit extends React.Component {
               type="text"
               id="bookAuthor"
               defaultValue={bookAuthor}
-              id="bookAuthor"
-              onChange={event => this.onValueChange(event, "bookName")}
               required
             />
           </div>
@@ -111,7 +91,6 @@ class ConnectedBookDetailsEdit extends React.Component {
               type="text"
               id="bookYear"
               defaultValue={bookYear}
-              onChange={event => this.onValueChange(event, "bookYear")}
               required
             />
           </div>
@@ -124,16 +103,11 @@ class ConnectedBookDetailsEdit extends React.Component {
               type="text"
               id="bookPrice"
               defaultValue={bookPrice}
-              onChange={event => this.onValueChange(event, "bookPrice")}
               required
             />
           </div>
 
-          <button
-            className="btn btn-danger"
-            type="submit"
-            disabled={this.state.hasError}
-          >
+          <button className="btn btn-danger" type="submit">
             Save
           </button>
           <button
@@ -148,7 +122,7 @@ class ConnectedBookDetailsEdit extends React.Component {
   }
 }
 
-const BookDetailsEdit = connect(mapStateToProps, mapDispatchToProps)(
-  ConnectedBookDetailsEdit
+const BookDetailsAdd = connect(mapStateToProps, mapDispatchToProps)(
+  ConnectedBookDetailsAdd
 );
-export default BookDetailsEdit;
+export default BookDetailsAdd;
