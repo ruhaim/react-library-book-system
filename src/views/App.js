@@ -3,6 +3,7 @@ import React from "react";
 import BookList from "./BookList";
 import BookOperations from "./BookOperations";
 import BookDetails from "./BookDetails";
+import AccessToken from "./AccessToken";
 import { getBookList } from "../services/api-services";
 
 const styles = {
@@ -18,6 +19,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div style={styles}>
+        <AccessToken />
         <h1>Library System React</h1>
         <div className="row">
           <div className="col-6">

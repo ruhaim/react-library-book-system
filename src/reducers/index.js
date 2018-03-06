@@ -31,6 +31,20 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         getBooksStatus: { isLoading: false, error: action.payload }
       };
+    /**/
+    case "VALIDATE_TOKEN_LOAD_COMPLETE":
+      return {
+        ...state,
+        access_token: action.payload,
+        validateTokenStatus: { isLoading: false }
+      };
+    case "VALIDATE_TOKEN_LOADING":
+      return { ...state, validateTokenStatus: { isLoading: true } };
+    case "VALIDATE_TOKEN_LOAD_ERROR":
+      return {
+        ...state,
+        validateTokenStatus: { isLoading: false, error: action.payload }
+      };
     case MODIFY_BOOK:
       return { ...state, selectedBook: action.payload };
     case SET_EDIT_MODE:

@@ -54,7 +54,6 @@ class ConnectedBookDetailsEdit extends React.Component {
 
     const book = { ...this.state.book, [paramName]: newVal };
     this.setState({ book });
-    console.log(book);
     this.setState({ hasError: false });
   }
   render() {

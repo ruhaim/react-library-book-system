@@ -8,6 +8,7 @@ import {
 import {
   getBookListService,
   editBookService,
+  validateTokenService,
   deleteBookService,
   addBookService
 } from "../services/api-services.js";
@@ -105,6 +106,40 @@ export function modifyBook(book) {
       })
       .catch(err => {
         dispatch(modifyBookLoadError(err));
+      });
+  };
+}
+
+const validateTokenLoading = () => ({
+  type: "VALIDATE_TOKEN_LOADING"
+});
+
+const validateTokenLoadComplete = access_token => ({
+  type: "VALIDATE_TOKEN_LOAD_COMPLETE",
+  payload: access_token
+});
+
+const validateTokenLoadError = error => ({
+  type: "VALIDATE_TOKEN_LOAD_ERROR",
+  payload: error
+});
+
+export function validateToken(token) {
+  return dispatch => {
+    if (token.trim().length === 0) {
+      return dispatch(validateTokenLoadError("Token ID cannt be empty"));
+    }
+
+    dispatch(validateTokenLoading);
+    validateTokenService(token)
+      .then(resp => resp.json())
+      .then(data => {
+        console.log("Valid");
+        dispatch(validateTokenLoadComplete(token));
+      })
+      .catch(err => {
+        //console.log("erro", err);
+        dispatch(validateTokenLoadError("Invalid access code"));
       });
   };
 }
