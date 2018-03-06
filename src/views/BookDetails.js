@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import  BookDetailsEdit  from "./BookDetailsEdit";
+import BookDetailsEdit from "./BookDetailsEdit";
 import { setEditMode, addBook } from "../actions/index";
 
 const mapStateToProps = state => {
@@ -36,28 +36,36 @@ class ConnectedBookDetails extends React.Component {
     }
     const selectedBook = this.props.book;
     if (!selectedBook) {
-      return <div>No Book Selected, Please Select a book</div>;
+      return (
+        <div className="card">
+          <div className="card-header">
+            No Book Selected, Please Select a book
+          </div>
+        </div>
+      );
     }
     const { bookID, bookName, bookAuthor, bookPrice, bookYear } = selectedBook;
 
     if (this.props.isEditMode) {
       return <BookDetailsEdit book={selectedBook} />;
     }
- 
+
     return (
-      <div>
-        <h1>Book Details ({bookID})</h1>
-        <h3>
-          {bookName} by {bookAuthor}
-        </h3>
-        <div>Year : {bookYear} </div>
-        <div>Price : {bookPrice} </div>
-        <button
-          className="btn btn-primary"
-          onClick={event => this.onEditClick(event)}
-        >
-          Edit
-        </button>
+      <div className="card">
+        <div className="card-header">Book Details ({bookID})</div>
+        <div className="card-block">
+          <h4 className="card-title">
+            {bookName} by {bookAuthor}
+          </h4>
+          <div className="card-text">Year : {bookYear} </div>
+          <div className="card-text">Price : {bookPrice} </div>
+          <button
+            className="btn btn-primary"
+            onClick={event => this.onEditClick(event)}
+          >
+            Edit
+          </button>
+        </div>
       </div>
     );
   }

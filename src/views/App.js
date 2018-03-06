@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props.access_token, "access token")
+    console.log(this.props.access_token, "access token");
     if (!this.props.access_token) {
       return <AccessToken />;
     }
@@ -34,7 +34,9 @@ class App extends React.Component {
             <BookOperations />
             <BookList />
           </div>
-          <BookDetails className="col-6" />
+          <div className="col-6">
+            <BookDetails />
+          </div>
         </div>
       </div>
     );

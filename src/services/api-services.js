@@ -4,7 +4,14 @@ const BASE_URL = "https://sheltered-gorge-85466.herokuapp.com";
 const API_BASE = BASE_URL + "/api";
 
 export const getBookListService = () => {
-  return fetch(BASE_URL + "/get_books");
+  return fetch(API_BASE + "/get_books", {
+    method: "get",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      access_token: store.getState().access_token
+    }
+  });
 };
 
 export const addBookService = book => {
@@ -13,7 +20,7 @@ export const addBookService = book => {
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      access_token: store.getState().JWT_TOKEN
+      access_token: store.getState().access_token
     },
     body: JSON.stringify({ book })
   });
@@ -25,7 +32,7 @@ export const editBookService = book => {
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      access_token: store.getState().JWT_TOKEN
+      access_token: store.getState().access_token
     },
     body: JSON.stringify({ book })
   });
@@ -37,7 +44,7 @@ export const deleteBookService = bookID => {
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
-      access_token: store.getState().JWT_TOKEN
+      access_token: store.getState().access_token
     },
     body: JSON.stringify({ bookID })
   });

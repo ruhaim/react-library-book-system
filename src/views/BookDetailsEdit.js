@@ -5,6 +5,7 @@ import { setEditMode, modifyBook, addBook } from "../actions/index";
 const mapStateToProps = state => {
   return {
     //book: state.selectedBook,
+    modifyBookStatus: state.modifyBookStatus,
     isEditMode: state.isEditMode
   };
 };
@@ -27,7 +28,12 @@ class ConnectedBookDetailsEdit extends React.Component {
 
   componentDidMount() {}
   componentWillReceiveProps(nextProps) {
-    this.setState({ book: nextProps.book });
+    let newState = { book: nextProps.book };
+    
+    if (nextProps.modifyBookStatus) {
+      newState = { ...newState, ...nextProps.modifyBookStatus };
+    }
+    this.setState({ ...newState });
   }
   onSaveClick(event) {
     event.preventDefault();
@@ -58,7 +64,10 @@ class ConnectedBookDetailsEdit extends React.Component {
   }
   render() {
     if (this.state.isLoading) {
-      return <div>Loading...</div>;
+      return <div className="alert alert-warning">Loading...</div>;
+    }
+    if (this.state.error) {
+      return <div className="alert alert-danger">{this.state.error}</div>;
     }
     const selectedBook = this.props.book;
     if (!selectedBook) {
@@ -67,80 +76,86 @@ class ConnectedBookDetailsEdit extends React.Component {
     const { bookID, bookName, bookAuthor, bookPrice, bookYear } = selectedBook;
 
     return (
-      <div>
-        <h2>Edit Book ({bookID})</h2>
-        <h3>
-          {bookName} by {bookAuthor}
-        </h3>
-        <form className="form" onSubmit={event => this.onFormSubmit(event)}>
-          <div className="form-inline">
-            <label className="col" for="bookName">
-              Book Name
-            </label>
-            <input
-              className="form-control"
-              type="text"
-              id="bookName"
-              defaultValue={bookName}
-              onChange={event => this.onValueChange(event, "bookName")}
-              required
-            />
-          </div>
-          <div className="form-inline">
-            <label className="col" for="bookAuthor">
-              Book Author
-            </label>
-            <input
-              className="form-control"
-              type="text"
-              id="bookAuthor"
-              defaultValue={bookAuthor}
-              id="bookAuthor"
-              onChange={event => this.onValueChange(event, "bookName")}
-              required
-            />
-          </div>
-          <div className="form-inline">
-            <label className="col" for="bookYear">
-              Book Year
-            </label>
-            <input
-              className="form-control"
-              type="text"
-              id="bookYear"
-              defaultValue={bookYear}
-              onChange={event => this.onValueChange(event, "bookYear")}
-              required
-            />
-          </div>
-          <div className="form-inline">
-            <label className="col" for="bookPrice">
-              Book Price
-            </label>
-            <input
-              className="form-control"
-              type="text"
-              id="bookPrice"
-              defaultValue={bookPrice}
-              onChange={event => this.onValueChange(event, "bookPrice")}
-              required
-            />
-          </div>
+      <div className="card">
+        <div className="card-header">Edit Book ({bookID})</div>
+        <div className="card-block">
+          <h4>
+            {bookName} by {bookAuthor}
+          </h4>
+          <form
+            key={bookID}
+            className="form"
+            onSubmit={event => this.onFormSubmit(event)}
+          >
+            <div className="form-inline">
+              <label className="col" for="bookName">
+                Book Name
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="bookName"
+                defaultValue={bookName}
+                onChange={event => this.onValueChange(event, "bookName")}
+                required
+              />
+            </div>
+            <div className="form-inline">
+              <label className="col" for="bookAuthor">
+                Book Author
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="bookAuthor"
+                defaultValue={bookAuthor}
+                id="bookAuthor"
+                onChange={event => this.onValueChange(event, "bookName")}
+                required
+              />
+            </div>
+            <div className="form-inline">
+              <label className="col" for="bookYear">
+                Book Year
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="bookYear"
+                defaultValue={bookYear}
+                onChange={event => this.onValueChange(event, "bookYear")}
+                required
+              />
+            </div>
+            <div className="form-inline">
+              <label className="col" for="bookPrice">
+                Book Price
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="bookPrice"
+                defaultValue={bookPrice}
+                onChange={event => this.onValueChange(event, "bookPrice")}
+                required
+              />
+            </div>
 
-          <button
-            className="btn btn-danger"
-            type="submit"
-            disabled={this.state.hasError}
-          >
-            Save
-          </button>
-          <button
-            className="btn btn-warning"
-            onClick={event => this.onCancelClick(event)}
-          >
-            Cancel
-          </button>
-        </form>
+            <button
+              className="btn btn-danger"
+              type="submit"
+              disabled={this.state.hasError}
+            >
+              Save
+            </button>
+            <button
+              className="btn btn-warning"
+              onClick={event => this.onCancelClick(event)}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

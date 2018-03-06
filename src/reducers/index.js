@@ -8,7 +8,8 @@ import {
 } from "../action-types/action-types.js";
 
 const initialState = {
-  getBooksStatus: { isLoading: false }
+  getBooksStatus: { isLoading: false },
+  modifyBookStatus: { isLoading: false }
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -45,6 +46,20 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         validateTokenStatus: { isLoading: false, error: action.payload }
       };
+    /**/
+    case "MODIFY_BOOK_LOAD_COMPLETE":
+      return {
+        ...state,
+        modifyBookStatus: { isLoading: false }
+      };
+    case "MODIFY_BOOK_LOADING":
+      return { ...state, modifyBookStatus: { isLoading: true } };
+    case "MODIFY_BOOK_LOAD_ERROR":
+      return {
+        ...state,
+        modifyBookStatus: { isLoading: false, error: action.payload }
+      };
+    /**/
     case MODIFY_BOOK:
       return { ...state, selectedBook: action.payload };
     case SET_EDIT_MODE:

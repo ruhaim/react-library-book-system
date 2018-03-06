@@ -98,11 +98,12 @@ export function modifyBook(book) {
     if (!book.bookID) {
       return dispatch(modifyBookLoadError("Invalid Request"));
     }
-    dispatch(modifyBookLoading);
+    dispatch(modifyBookLoading());
     editBookService(book)
       .then(responseHandler)
       .then(data => {
         dispatch(modifyBookLoadComplete(data.result));
+        dispatch(getBooks());
       })
       .catch(err => {
         dispatch(modifyBookLoadError(err));
