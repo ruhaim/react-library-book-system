@@ -5,6 +5,7 @@ import {
   SELECT_BOOK,
   SET_EDIT_MODE
 } from "../action-types/action-types.js";
+import { getBookListService } from "../services/api-services.js";
 
 export const addBook = book => ({
   type: ADD_BOOK,
@@ -40,18 +41,43 @@ export function incrementAsync() {
   return dispatch => {
     setTimeout(() => {
       // Yay! Can invoke sync or async actions with `dispatch`
-      console.log("setting in thunk"+Math.random());
+      console.log("setting in thunk" + Math.random());
       dispatch(setEditMode(true));
     }, 1000);
   };
 }
 
+export const setGetBooksLoading = () => ({
+  type: "GET_BOOKS_LOADING"
+});
+
+export const setGetBooksLoadComplete = books => ({
+  type: "GET_BOOKS_LOAD_COMPLETE",
+  payload: books
+});
+
+
+export const setGetBooksLoadError = (error) => ({
+  type: "GET_BOOKS_LOAD_ERROR",
+  payload:error
+});
+
 export function getBooks() {
   return dispatch => {
-    setTimeout(() => {
-      // Yay! Can invoke sync or async actions with `dispatch`
-      console.log("setting in thunk" + Math.random());
-      dispatch(setEditMode(true));
-    }, 1000);
+    dispatch(setGetBooksLoading);
+    getBookListService()
+      .then((resp) => resp.json()) 
+      .then(data => {
+        dispatch(setGetBooksLoadComplete(data.result));
+      })
+      .catch(err => {
+        dispatch(setGetBooksLoadError(err));
+      });
+
+    // setTimeout(() => {
+    //   // Yay! Can invoke sync or async actions with `dispatch`
+    //   console.log("setting in thunk" + Math.random());
+    //   dispatch(setEditMode(true));
+    // }, 1000);
   };
 }

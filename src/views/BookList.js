@@ -6,28 +6,25 @@ import {
   TableSelection
 } from "@devexpress/dx-react-grid-bootstrap3";
 import { SelectionState } from "@devexpress/dx-react-grid";
-import { getBookList } from "../services/api-services";
 import { selectBook, getBooks, incrementAsync } from "../actions/index";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-  return { booklist: state.books };
+  return { booklist: state.books ,
+          isLoading : state.getBooksStatus.isLoading || false};
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     selectBook: book => dispatch(selectBook(book)),
     getBooks: () => dispatch(getBooks()),
-    incrementAsync: () => dispatch(incrementAsync())
   };
 };
 
 class ConnectedBookList extends React.Component {
   constructor() {
     super();
-    this.state = {
-      isLoading: true
-    };
+    this.state={selection:[]};
 
     this.changeSelection = selection => {
       const selectedBookIndex = selection.pop();
@@ -39,11 +36,10 @@ class ConnectedBookList extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: false });
     this.props.getBooks();
   }
   render() {
-    if (this.state.isLoading || !this.props.booklist) {
+    if (this.props.isLoading || !this.props.booklist) {
       return <div>Loading...</div>;
     }
 
