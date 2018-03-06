@@ -1,5 +1,5 @@
 import React from "react";
-
+import { connect } from "react-redux";
 import BookList from "./BookList";
 import BookOperations from "./BookOperations";
 import BookDetails from "./BookDetails";
@@ -10,16 +10,24 @@ const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
 };
+const mapStateToProps = state => {
+  return {
+    access_token: state.access_token
+  };
+};
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
   }
 
   render() {
+    console.log(this.props.access_token, "access token")
+    if (!this.props.access_token) {
+      return <AccessToken />;
+    }
     return (
       <div style={styles}>
-        <AccessToken />
         <h1>Library System React</h1>
         <div className="row">
           <div className="col-6">
@@ -32,3 +40,5 @@ export default class App extends React.Component {
     );
   }
 }
+const ConnectedApp = connect(mapStateToProps)(App);
+export default ConnectedApp;

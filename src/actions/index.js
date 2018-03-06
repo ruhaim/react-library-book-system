@@ -71,7 +71,7 @@ export function getBooks() {
   return dispatch => {
     dispatch(setGetBooksLoading);
     getBookListService()
-      .then(resp => resp.json())
+      .then(responseHandler)
       .then(data => {
         dispatch(setGetBooksLoadComplete(data.result));
       })
@@ -100,7 +100,7 @@ export function modifyBook(book) {
     }
     dispatch(modifyBookLoading);
     editBookService(book)
-      .then(resp => resp.json())
+      .then(responseHandler)
       .then(data => {
         dispatch(modifyBookLoadComplete(data.result));
       })
@@ -127,19 +127,25 @@ const validateTokenLoadError = error => ({
 export function validateToken(token) {
   return dispatch => {
     if (token.trim().length === 0) {
-      return dispatch(validateTokenLoadError("Token ID cannt be empty"));
+      return dispatch(validateTokenLoadError("Token ID can't be empty"));
     }
 
-    dispatch(validateTokenLoading);
+    dispatch(validateTokenLoading());
     validateTokenService(token)
-      .then(resp => resp.json())
+      .then(responseHandler)
       .then(data => {
-        console.log("Valid");
         dispatch(validateTokenLoadComplete(token));
       })
       .catch(err => {
-        //console.log("erro", err);
         dispatch(validateTokenLoadError("Invalid access code"));
       });
   };
 }
+
+const responseHandler = resp => {
+  if (!resp.ok) {
+    console.log(resp.statusText);
+    throw new Error(resp.statusText);
+  }
+  return resp.json();
+};
