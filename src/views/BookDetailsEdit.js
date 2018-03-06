@@ -37,8 +37,7 @@ class ConnectedBookDetailsEdit extends React.Component {
   onFormSubmit(event) {
     event.preventDefault();
     console.log(event);
-
-    this.props.setEditMode(true);
+    this.props.modifyBook({ ...this.state.book });
   }
   onCancelClick(event) {
     event.preventDefault();

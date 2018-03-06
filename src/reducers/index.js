@@ -8,15 +8,7 @@ import {
 } from "../action-types/action-types.js";
 
 const initialState = {
-  books: [
-    {
-      bookID: 1,
-      bookName: "FunFun",
-      bookAuthor: "NoFun",
-      bookYear: "2018",
-      bookPrice: 230
-    }
-  ]
+  getBooksStatus: { isLoading: false }
 };
 
 const rootReducer = (state = initialState, action) => {
