@@ -4,3 +4,4 @@ export const GET_BOOKS = "GET_BOOKS";
 export const GET_BOOK = "GET_BOOK";
 export const SELECT_BOOK = "SELECT_BOOK";
 export const SET_EDIT_MODE = "SET_EDIT_MODE";
+export const SET_ADD_NEW_MODE = "SET_ADD_NEW_MODE";

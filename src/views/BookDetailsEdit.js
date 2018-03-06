@@ -109,8 +109,7 @@ class ConnectedBookDetailsEdit extends React.Component {
                 type="text"
                 id="bookAuthor"
                 defaultValue={bookAuthor}
-                id="bookAuthor"
-                onChange={event => this.onValueChange(event, "bookName")}
+                onChange={event => this.onValueChange(event, "bookAuthor")}
                 required
               />
             </div>

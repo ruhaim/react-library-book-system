@@ -3,7 +3,8 @@ import {
   MODIFY_BOOK,
   GET_BOOKS,
   SELECT_BOOK,
-  SET_EDIT_MODE
+  SET_EDIT_MODE,
+  SET_ADD_NEW_MODE
 } from "../action-types/action-types.js";
 import {
   getBookListService,
@@ -12,11 +13,11 @@ import {
   deleteBookService,
   addBookService
 } from "../services/api-services.js";
-
-export const addBook = book => ({
-  type: ADD_BOOK,
-  payload: book
-});
+const uuidv4 = require("uuid/v4");
+// export const addBook = book => ({
+//   type: ADD_BOOK,
+//   payload: book
+// });
 
 // export const modifyBook = book => ({
 //   type: MODIFY_BOOK,
@@ -43,16 +44,11 @@ export const setEditMode = bool => ({
   payload: bool
 });
 
-export function incrementAsync() {
-  return dispatch => {
-    setTimeout(() => {
-      // Yay! Can invoke sync or async actions with `dispatch`
-      console.log("setting in thunk" + Math.random());
-      dispatch(setEditMode(true));
-    }, 1000);
-  };
-}
-
+export const setAddNewMode = bool => ({
+  type: SET_ADD_NEW_MODE,
+  payload: bool
+});
+/**/
 export const setGetBooksLoading = () => ({
   type: "GET_BOOKS_LOADING"
 });
@@ -150,3 +146,41 @@ const responseHandler = resp => {
   }
   return resp.json();
 };
+
+const addBookLoading = () => ({
+  type: "ADD_BOOK_LOADING"
+});
+
+const addBookLoadComplete = book => ({
+  type: "ADD_BOOK_LOAD_COMPLETE",
+  payload: book
+});
+
+const addBookLoadError = error => ({
+  type: "ADD_BOOK_LOAD_ERROR",
+  payload: error
+});
+
+const hideAddNewStatusNotification = () => ({
+  type: "HIDE_ADD_NEW_STATUS_NOTIFICATION"
+});
+
+export function addBook(book) {
+  return dispatch => {
+    book.bookID = uuidv4();
+
+    dispatch(addBookLoading());
+    addBookService(book)
+      .then(responseHandler)
+      .then(data => {
+        dispatch(addBookLoadComplete(book));
+        dispatch(getBooks());
+        setTimeout(() => {
+          dispatch(hideAddNewStatusNotification());
+        }, 2000);
+      })
+      .catch(err => {
+        dispatch(addBookLoadError("Invalid Request"));
+      });
+  };
+}

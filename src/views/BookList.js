@@ -12,7 +12,8 @@ import { connect } from "react-redux";
 const mapStateToProps = state => {
   return {
     booklist: state.books,
-    isLoading: state.getBooksStatus.isLoading || false
+    isLoading: state.getBooksStatus.isLoading || false,
+    isAddNewMode: state.isAddNewMode
   };
 };
 
@@ -29,6 +30,11 @@ class ConnectedBookList extends React.Component {
     this.state = { selection: [] };
 
     this.changeSelection = selection => {
+      if (this.props.isAddNewMode){
+        this.setState({
+          selection: []
+        });
+        return}
       const selectedBookIndex = selection.pop();
       this.setState({
         selection: [selectedBookIndex]
@@ -49,9 +55,9 @@ class ConnectedBookList extends React.Component {
       <Grid
         rows={this.props.booklist}
         columns={[
-          { name: "bookID", title: "ID" },
-          { name: "bookName", title: "Name" },
-          { name: "bookAuthor", title: "Author" }
+          { name: "bookName", title: "Book Name" },
+          { name: "bookAuthor", title: "Author" },
+          { name: "bookYear", title: "Year" }
         ]}
       >
         <Table />
