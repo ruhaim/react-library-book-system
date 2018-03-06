@@ -36,7 +36,7 @@ class App extends React.Component {
     }
     return (
       <div style={styles}>
-        <h1>Library System React</h1>
+        <h1>ReactJS Book Library System</h1>
         <div className="row">
           <div className="col-6">
             <BookOperations />

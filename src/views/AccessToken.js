@@ -59,6 +59,7 @@ class AccessToken extends React.Component {
       <div className="container h-100">
         <div className="row h-100 justify-content-center align-items-center">
           <div className="jumbotron col-12">
+            <h1>ReactJS Book Library System</h1>
             {this.getMessagePrompt()}
             <div className="form">
               <input
