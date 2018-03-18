@@ -25,7 +25,7 @@ class BookOperations extends React.Component {
     console.log(nextProps, "new props");
     let newState = { isAddNewMode: nextProps.isAddNewMode };
 
-    if (nextProps.nextProps.addBookStatus) {
+    if (nextProps.addBookStatus) {
       newState = { ...newState, ...nextProps.modifyBookStatus };
     }
     this.setState({ ...newState });
